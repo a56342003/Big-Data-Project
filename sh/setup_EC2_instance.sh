@@ -19,13 +19,13 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out
 
 # Configure Jupyter Notebook
 jupyter notebook --generate-config
-cd ~./jupyter/
+cd ~/.jupyter/
 mv jupyter_notebook_config.py temp_config.py
 
 echo '
 c = get_config()
 
-Notebook config this is where you saved your pem cert
+# Notebook config this is where you saved your pem cert
 c.NotebookApp.certfile = u"/home/ubuntu/certs/mycert.pem"
 
 # Run on all IP addresses of your instance
@@ -38,7 +38,7 @@ c.NotebookApp.open_browser = False
 c.NotebookApp.port = 8888
 ' > jupyter_notebook_config.py
 
-echo temp_config.py >> jupyter_notebook_config.py
+cat temp_config.py >> jupyter_notebook_config.py
 rm -f temp_config.py
 
 
@@ -50,6 +50,8 @@ sudo apt-get install default-jre
 sudo apt-get install scala
 
 # Install py4j
+cd
+source ~/.bashrc
 export PATH=$PATH:$HOME/anaconda3/bin
 conda install pip
 pip install py4j

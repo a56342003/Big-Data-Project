@@ -22,6 +22,9 @@ do
 	sh ./get_transaction.sh ${start_of_height} $((${start_of_height}+${interval}-1)))&
 	start_of_height=$((${start_of_height}+${interval}))
 	
+	if [ $((i%10)) == 0 ];then
+		wait
+	fi	
 done
 
 number_of_last=$3
