@@ -17,6 +17,33 @@ mkdir certs
 cd certs
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
 
+
+# Install Java
+sudo apt-get update
+sudo apt-get install default-jre
+
+# Install Scala
+sudo apt-get install scala
+
+# Install py4j
+cd
+source ~/.bashrc
+conda update -n base conda
+conda install pip
+pip install --upgrade pip
+pip install py4j
+
+# Install Spark and Hadoop
+wget archive.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
+sudo tar -zxvf ./spark-2.3.0-bin-hadoop2.7.tgz
+
+
+# Tell Python where to find Spark
+export SPARK_HOME='/home/ubuntu/spark-2.3.0-bin-hadoop2.7'
+export PATH=$SPARK_HOME:$PATH
+export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+
+
 # Configure Jupyter Notebook
 jupyter notebook --generate-config
 cd ~/.jupyter/
@@ -42,31 +69,7 @@ cat temp_config.py >> jupyter_notebook_config.py
 rm -f temp_config.py
 
 
-# Install Java
-sudo apt-get update
-sudo apt-get install default-jre
-
-# Install Scala
-sudo apt-get install scala
-
-# Install py4j
-cd
-source ~/.bashrc
-export PATH=$PATH:$HOME/anaconda3/bin
-conda install pip
-pip install py4j
-
-# Install Spark and Hadoop
-wget archive.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
-mv spark-2.3.0-bin-hadoop2.7.tgz $HOME/
-cd $HONE/
-sudo tar -zxvf spark-2.3.0-bin-hadoop2.7.tgz
-
-
-# Tell Python where to find Spark
-SPARK_HOME='/home/ubuntu/spark-2.3.0-bin-hadoop2.7'
-PATH=$SPARK_HOME:$PATH
-PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+. ~/.bashrc
 
 exit $?
 
