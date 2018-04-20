@@ -37,7 +37,7 @@ echo "==============Part2:${1} to ${2} start=============="
 
 while read line
 do 
-	bitcoin-cli decoderawtransaction $(bitcoin-cli getrawtransaction $(echo $line)) >> "bitcoin_transaction_$1_$2"
+	bitcoin-cli decoderawtransaction $(bitcoin-cli getrawtransaction $(echo $line)) | jq -c '.' >> "bitcoin_transaction_$1_$2"
 done < ${file2}
 
 
