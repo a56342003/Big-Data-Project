@@ -36,7 +36,3 @@ sh ./get_block.sh ${start_of_height} ${end_of_height})&
 wait
 
 echo "done"
-
-exit $?
-
-
