@@ -22,18 +22,14 @@ def rearrangeRow(cols):
     rowDict['txNumber'] = txNumber
     return Row(**rowDict)
 
-def txVolume(voutList):
-    vol=0
-    for vout in voutList:
-        vol += vout[-1]        
-    return vol
 
 def cleanData(df):
     
     txvol = df.rdd\
             .map(lambda x: (x['height'], x['tx']))\
             .flatMapValues(lambda x:x)\
-            .mapValues(lambda x:txVolume(x['vout']))\
+            .flatMapValues(lambda x:x['vout'])\
+            .mapValues(lambda x:x['value'])\
             .reduceByKey(lambda x,y:x+y)
 
     txlen = df.rdd\
